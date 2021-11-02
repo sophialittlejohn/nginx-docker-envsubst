@@ -1,0 +1,23 @@
+# basic setup to test reverse proxying
+events {
+
+} 
+
+http {
+
+  server {  
+    listen 80;
+
+    location ~ ^(/.*?)\/amp$ {
+      resolver 8.8.8.8;
+      proxy_set_header X-Akamai xxx;
+      proxy_pass ${AMP_HOST}$1/;
+    }
+
+    location ~ ^/amp-assets(\/.*)$ {
+      resolver 8.8.8.8;
+      proxy_set_header X-Akamai xxx;
+      proxy_pass ${AMP_HOST}/amp-assets$1;
+    }
+  }
+}
