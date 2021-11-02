@@ -14,7 +14,7 @@ http {
       resolver 8.8.8.8;
       proxy_set_header X-Akamai ${X_AKAMAI_HEADER};
       # $1 referes to the regex group matched in the location directive
-      proxy_pass ${AMP_HOST}$1/;
+      proxy_pass ${AMP_HOST}$1/amp/;
     }
 
     location ~ ^/amp-assets(\/.*)$ {
