@@ -8,15 +8,18 @@ http {
   server {  
     listen 80;
 
+    # filter any path that has amp in it and redirect to AMP_HOST/path
     location ~ ^(/.*?)\/amp$ {
+      #  resolver is needed for local development, probably not needed in
       resolver 8.8.8.8;
-      proxy_set_header X-Akamai xxx;
+      proxy_set_header X-Akamai ${X_AKAMAI_HEADER};
+      # $1 referes to the regex group matched in the location directive
       proxy_pass ${AMP_HOST}$1/;
     }
 
     location ~ ^/amp-assets(\/.*)$ {
       resolver 8.8.8.8;
-      proxy_set_header X-Akamai xxx;
+      proxy_set_header X-Akamai ${X_AKAMAI_HEADER};
       proxy_pass ${AMP_HOST}/amp-assets$1;
     }
   }

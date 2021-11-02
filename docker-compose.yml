@@ -5,11 +5,12 @@ web:
   ports:
     - "8082:80"
   environment:
-    - AMP_HOST=https://xxx.com
+    - AMP_HOST=xxx
+    - X_AKAMAI_HEADER=xxx
   command: >
     /bin/sh -c
     "envsubst '
-    $${AMP_HOST}
+    $${AMP_HOST} $${X_AKAMAI_HEADER}
     '< /etc/nginx/nginx.conf.template
     > /etc/nginx/nginx.conf
     && nginx -g 'daemon off;'"
